@@ -233,3 +233,40 @@ Since you're exposing SSH access to the initramfs environment, security is criti
 
 
 By following these steps, you can set up remote decryption of your LUKS-encrypted root filesystem, allowing you to unlock your server during boot without needing physical access.
+
+
+### Boot options
+
+In */etc/dropbear/initramfs/dropbear.conf* DO NOT use MOTD. 
+In */etc/dropbear/initramfs/dropbear.conf* use **-E** to help debugging: the errors will be on screen. **-F** also is nice, it makes dropbear runs in front, not in background.
+We are waiting fr decryption, so it's ok
+
+```bash
+sudo nano /etc/dropbear/initramfs/dropbear.conf
+
+## in is. add this:
+
+DROPBEAR_OPTIONS="-F -E -p 2222"
+```
+
+**My configuration file**
+
+```bash
+DROPBEAR_GATEWAY_INTERFACE="eno1"
+
+DROPBEAR_PORT=2222
+
+DROPBEAR_BANNER="/etc/motd.txt"
+
+
+DROPBEAR_MOTD=1
+
+DROPBEAR_OPTIONS="-F -E -p 2222"
+DROPBEAR_EXTRA_ARGS="-F -E -p 2222"
+
+DROPBEAR_PASSWORD_AUTH=1
+
+DROPBEAR_VERBOSITY=1
+
+DROPBEAR_SSH_KEYS="/etc/dropbear/initramfs/authorized_keys"
+```
