@@ -61,6 +61,8 @@ Here are some common approaches, for non-root fs:
      2. When the machine starts, it queries the Tang server for the decryption key to unlock the LUKS volume automatically.
    - **Security**: Tang and Clevis are built with security in mind, but the network must be secured to prevent unauthorized decryption.
 
+After having installed Clevis, you can use [this script](scripts/clevis-luks-unlock.sh) to decrypt a device.
+
 Each method requires careful consideration of security risks, especially when dealing with remote access and decryption over potentially insecure networks. 
 
 Also, when dealing with a **ROOT FileSystem** device, it's not the same that with another device not relevant to booting the machine.
@@ -115,6 +117,10 @@ if __name__ == '__main__':
     # Use SSL/TLS for security
     app.run(host='0.0.0.0', port=8007, ssl_context=('cert.pem', 'key.pem'))
 ```
+
+Here's another example, [this script](scripts/unlock_daemon.py) to decrypt a device, hardcoded in the script.
+
+
 
 #### Steps to Set It Up:
 1. **Install Dependencies**:
